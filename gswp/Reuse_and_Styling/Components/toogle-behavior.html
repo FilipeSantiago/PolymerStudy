@@ -1,0 +1,39 @@
+<script>
+
+  ToggleMixin = function(superClass) {
+    return class extends superClass {
+      
+      ready(){
+        if(super.ready){
+          window.addEventListener('_toggle', () => this.someFunction());
+        }
+      };
+
+      static get properties() {
+        return {
+          isToggled: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            observer: '_toggledChanged'
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          '_toggledChanged(isToggled)',
+        ]
+      }
+
+      _toggle(){
+        this.isToggled = !this.isToggled;
+      };
+
+      _toggledChanged(value) {
+        this.toggleClass('toggled', value);
+      }
+    }
+  }
+
+</script>

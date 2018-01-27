@@ -1,0 +1,143 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" type="css" href="../../../app/components/pd-drawer/pd-drawer.css">
+
+<dom-module id="pd-drawer">
+    <link rel="import" type="css" href="../../../app/components/pd-drawer/pd-drawer.css">
+    <link rel="import" type="css"  href="../../../app/css/skins/default/colors.css">  
+
+    <template>
+        <div id="drawer" class$="{{mainClasses}}">
+            <div class="c-p paper-toolbar p-l-05 p-r-05 shadow-bottom">
+                <div class="scrim" on-tap="closeDrawers"></div>
+                <paper-icon-button class="left-show-btn f-left" icon="menu" title="menu" on-tap="toggleLeft">
+                </paper-icon-button>
+                <div class="pd-toolbar-header p-l-05 f-left">
+                    <slot name="logo"></slot>
+                </div>
+                <paper-icon-button class="right-show-btn f-right" icon="more-vert" title="more-vert" on-tap="toggleRight">
+                </paper-icon-button>
+            </div>
+            <div class="main c-n-dark">
+                <div class="main-section">
+                    <slot name="main"></slot>
+                </div>
+                <div class="scrim" on-tap="closeDrawers"></div>
+                <div class="left-drawer c-n-light shadow-right">
+                    <div class="drawer-inner">
+                        <div class="drawer-inner-width">
+                            <slot name="left-menu"></slot>
+                            <paper-icon-button class="pin-btn c-text-light" icon="turned-in" title="turned-in" on-tap="pinLeft">
+                            </paper-icon-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-drawer c-n-light shadow-left">
+                    <div class="drawer-inner">
+                        <div class="drawer-inner-width">
+                            <slot name="right-menu"></slot>
+                            <paper-icon-button class="pin-btn c-text-light" icon="turned-in" title="turned-in" on-tap="pinRight">
+                            </paper-icon-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+
+    class PdDrawer extends Polymer.Element{
+
+        static get is(){ return "pd-drawer" };
+
+        static get properties(){
+            return{
+                leftLocked: {
+                    type: Boolean,
+                    value: true
+                },
+                leftShow: {
+                    type: Boolean,
+                    value: false
+                },
+                rightLocked: {
+                    type: Boolean,
+                    value: true
+                },
+                rightShow: {
+                    type: Boolean,
+                    value: false
+                },
+                mobileMode:{
+                    type:Boolean,
+                    value:false,
+                },
+                tabletMode:{
+                    type:Boolean,
+                    value:false,
+                },
+                pcMode:{
+                    type:Boolean,
+                    value:false,
+                },
+                mainClasses: {
+                    type: String,
+                    computed: '_computeClasses(leftShow, rightShow, leftLocked, rightLocked, mobileMode, tabletMode, pcMode)'
+                },
+                drawerClasses:{
+                    type: String,
+                    value: "",
+                    reflectToAttribute: true,
+                    notify: true
+                }
+            };
+        };
+
+        _computeClasses(leftShow, rightShow, leftLocked, rightLocked,mobileMode,tabletMode,pcMode) {
+            var classStr = [];
+            if (leftLocked)
+                classStr.push('left-locked');
+            if (leftShow)
+                classStr.push('left-show');
+            if (rightLocked)
+                classStr.push('right-locked');
+            if (rightShow)
+                classStr.push('right-show');
+            if (mobileMode)
+                classStr.push('mobile-mode-main');
+            if (tabletMode)
+                classStr.push('tablet-mode-main');
+            if (pcMode)
+                classStr.push('pc-mode-main');
+            this.drawerClasses = classStr.join(' ');
+            return classStr.join(' ');
+        }
+
+        toggleLeft() {
+            this.rightShow = false;
+            this.leftShow = !this.leftShow;
+        }
+
+        toggleRight() {
+            this.leftShow = false;
+            this.rightShow = !this.rightShow;
+        };
+
+        pinLeft() {
+            this.leftLocked = !this.leftLocked;
+            this.closeDrawers();
+            this.mobileModeCheck();
+        };
+
+        pinRight() {
+            this.rightLocked = !this.rightLocked;
+            this.closeDrawers();
+            this.mobileModeCheck();
+        };
+
+    };
+
+    customElements.define(PdDrawer.is, PdDrawer);
+
+</script>

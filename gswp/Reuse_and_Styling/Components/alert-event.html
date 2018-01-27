@@ -1,0 +1,66 @@
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="toogle-behavior.html">
+
+<dom-module id="alert-event">
+    <template  on-tap="regularTap"> 
+        <h2 on-tap="headerTapped">Alert List</h2>
+        <ul id="alertList" class="alert-list-inner" on-tap="specialTap" on-track="handleTrack">
+            <li>Alert 1</li>
+            <li>Alert 2</li>
+            <li>Alert 3</li>
+        </ul>
+        <div id="dragme" on-track="handleTrack">[[message]]</div>
+    </template>
+</dom-module>
+
+<script>
+
+class AlertEvent extends ToggleMixin(Polymer.Element) {        
+    
+    static get is() { return "alert-event"; }
+
+    ready(){
+        super.ready();
+       // this.$.alertList = this.imperativelyTap.bind(this);
+        //window.addEventListener('tap', this.$.alertList);
+        //this.$.alertList.addEventListener('tap', e => {this.imperativelyTap(e)});
+    }        
+
+    headerTapped(e) {
+        console.log("Header tapped",e.target, e.composedPath());
+    };
+
+    regularTap(e) {
+        console.log("Tapped",e.target, e.composedPath());
+    };
+
+    specialTap(e) {
+        console.log("Alert list tapped", e.target, e.composedPath());
+        
+    };
+
+    imperativelyTap(e) {
+        console.log("Alert list tapped 2",e.target,  e.composedPath());
+        window.removeEventListener('tap', this.$.alertList);
+    };
+
+    handleTrack(e) {
+        switch(e.detail.state) {
+          case 'start':
+            this.message = 'Tracking started!';
+            break;
+          case 'track':
+            this.message = 'Tracking in progress... ' +
+              e.detail.x + ', ' + e.detail.y;
+            break;
+          case 'end':
+            this.message = 'Tracking ended!';
+            break;
+        }
+    }
+
+}
+
+customElements.define(AlertEvent.is, AlertEvent);
+</script>

@@ -1,0 +1,46 @@
+
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import"  href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/utils/flattened-nodes-observer.html">
+
+
+
+<dom-module id="obeserver-element">
+<template>
+    <div id="alertList">
+        <span>Alert 1</span>
+        <span>Alert 2</span>
+        <span>Alert 3</span>
+        <slot></slot>
+    </div>
+</template>
+</dom-module>
+
+<script>
+
+    class DomObserverElement extends Polymer.Element {        
+        
+        static get is() { return "obeserver-element"; }
+
+        ready(){
+            super.ready();
+            console.log(this.shadowRoot.querySelector(".alert-message"));   
+            var self = this;
+            console.log(Polymer.dom(this).children); 
+            this._observer = new Polymer.FlattenedNodesObserver(self.$.alertList, (info) => {
+                console.log("added:", info.addedNodes);
+                console.log("removed:", info.removedNodes);
+            });
+            var spanElement = document.createElement("span");
+            spanElement.innerHTML = "Alert 4";
+            Polymer.dom(self.$.alertList).appendChild(spanElement);
+            this._observer.flush();
+            Polymer.dom(self.$.alertList).removeChild(spanElement);
+            this._observer.flush();
+            this._observer.disconnect();
+        }     
+    }
+
+    customElements.define(DomObserverElement.is, DomObserverElement);
+
+</script>

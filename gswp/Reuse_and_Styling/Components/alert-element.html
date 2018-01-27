@@ -1,0 +1,28 @@
+  <!-- import polymer-element -->
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+
+  
+  <dom-module id="alert-element">
+    <template>
+      <h2 id="alertHead"></h2>
+      <slot></slot>
+    </template>
+  </dom-module>
+
+  <script>
+
+    class DomElement extends Polymer.Element {        
+        
+      static get is() { return "alert-element"; }
+
+      ready(){
+          super.ready();
+          this.$.alertHead.textContent = 'Alerts Here';
+          console.log(this.shadowRoot.querySelector(".alert-message"));
+      }        
+
+    }
+
+    customElements.define(DomElement.is, DomElement);
+
+  </script>

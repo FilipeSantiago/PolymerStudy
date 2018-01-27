@@ -1,0 +1,38 @@
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import"  href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="combinator-element">
+<template>
+    <style>
+        :host {
+            border: 1px solid #000000; /* Thin Black */
+            display: block;
+        }
+        :host ::content ul {
+            border: 4px solid #000000; /* Thick Black */
+        }
+    </style>
+    <h2 id="alertHead"></h2>
+        <ul class="alert-list">
+            <li>Alert 1</li>
+            <li>Alert 2</li>
+            <li>Alert 3</li>
+        </ul>
+    <slot></slot>
+</template>
+</dom-module>
+
+<script>
+
+    class DomCombinatorElement extends Polymer.Element {        
+        
+        static get is() { return "combinator-element"; }
+
+        ready(){
+            super.ready();
+        }     
+    }
+
+    customElements.define(DomCombinatorElement.is, DomCombinatorElement);
+
+</script>

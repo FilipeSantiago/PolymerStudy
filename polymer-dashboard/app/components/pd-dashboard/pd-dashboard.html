@@ -1,0 +1,37 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../app/components/pd-drawer/pd-drawer.html">
+<link rel="import" href="../../../app/components/pd-list-item/pd-list-item.html">
+
+<dom-module id="pd-dashboard">  
+    <link rel="stylesheet"  href="../../../app/css/main.css">  
+    <link rel="stylesheet"  href="../../../app/css/position.css">  
+    <link rel="stylesheet"  href="../../../app/css/font.css">  
+
+    <template>
+        <pd-drawer>
+            <div slot="logo">Logo here</div>
+            <div slot="left-menu" class="p-t-1">
+                <pd-list-item position="left" icon="home" url="#!">Home</pd-list-item>
+                <pd-list-item position="left" icon="account-box" url="#!/profile">Profile</pd-list-item>
+                <pd-list-item position="left" icon="view-module" url="#!/staff">Staff</pd-list-item>
+                <pd-list-item position="left" icon="exit-to-app" url="#!/auth/logout">Logout</pd-list-item>
+            </div>
+            <div slot="right-menu">
+                Right Menu Here
+            </div>
+            <div slot="main">
+                Main Stuff Here
+            </div>
+        </pd-drawer>
+    </template>
+</dom-module>
+
+<script>
+
+    class PdDashboard extends Polymer.Element{
+        static get is(){ return "pd-dashboard" }   
+    };
+
+    customElements.define(PdDashboard.is, PdDashboard);    
+
+</script>

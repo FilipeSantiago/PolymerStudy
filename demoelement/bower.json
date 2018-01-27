@@ -1,0 +1,20 @@
+{
+  "name": "demo",
+  "authors": [
+    "Filipe Santiago <filipe_santiago@id.uff.br>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.1"
+  }
+}

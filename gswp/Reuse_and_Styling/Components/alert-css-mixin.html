@@ -1,0 +1,38 @@
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+
+<dom-module id="css-alert-wrapper">
+    <template>
+        <style>
+            :host {
+                background-color: var(--primary-color);
+                display:block;
+            }
+            .alert-list-inner {
+                color: var(--secondary-color);
+                @apply --primary-block;
+            }
+        </style>
+        <h2 id="alertHead"></h2>
+        <ul class="alert-list-inner">
+            <li>Alert 1</li>
+            <li>Alert 2</li>
+            <li>Alert 3</li>
+        </ul>
+        <slot></slot>
+        <footer id="footer">Created by: <div id="creator"></div></footer>
+    </template>
+</dom-module>
+
+<script>
+    class CssAlertStyler extends Polymer.Element{
+        static get is() { return "css-alert-wrapper"; }
+
+      ready(){
+        super.ready();
+        this.updateStyles({'--primary-color': 'white'});
+        this.updateStyles({'--secondary-color': 'black'});
+      }   
+    }
+
+    customElements.define(CssAlertStyler.is, CssAlertStyler);
+</script>

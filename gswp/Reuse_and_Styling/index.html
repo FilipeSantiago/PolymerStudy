@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+        <link rel="import" href="Components/multiple-mixin.html">
+        <link rel="import" href="bower_components/polymer/polymer-element.html">
+        <link rel="import" href="bower_components/paper-input/paper-input.html">
+        <link rel="import" href="bower_components/iron-input/iron-input.html">
+        <link rel="import" href="Components/alert-element.html">
+        <link rel="import" href="Components/light-dom.html">
+        <link rel="import" href="Components/dom-api.html">
+        <link rel="import" href="Components/observer.html">
+        <link rel="import" href="Components/alert-combinator.html">
+        <link rel="import" href="Components/alert-css-mixin-wrapper.html">
+        <link rel="import" href="app-theme.html">
+        <link rel="import" href="Components/alert-event.html">
+    </head>
+    <body>
+
+        <style>
+
+        </style>
+
+        <paper-input></paper-input>
+        <alert-element>
+        <ul>
+            <li class="alert-message">Alert 1</li>
+            <li class="alert-message">Alert 2</li>
+            <li class="alert-message">Alert 3</li>
+        </ul>
+        </alert-element>
+
+        <alert-element></alert-element>
+
+        <!--<alert-element-two></alert-element-two>
+
+        <alert-element-two>
+        <ul class="alert-list">
+            <li>Alert List 4</li>
+        </ul>
+        </alert-element-two>-->
+
+        <alert-element-footer></alert-element-footer>
+        <obeserver-element></obeserver-element>
+
+        <combinator-element>
+        <ul class="alert-list">
+            <li>Alert List 4</li>
+        </ul>
+        </combinator-element>
+
+        <css-element-wrapper></css-element-wrapper>
+        
+        <iron-input allowed-pattern="[0-9]">
+            <paper-input pattern="\d{5}">
+        </iron-input>
+
+        <alert-event></alert-event>
+        <custom-event></custom-event>
+
+    </body>
+</html>
+

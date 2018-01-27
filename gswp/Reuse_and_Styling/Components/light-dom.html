@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import"  href="../bower_components/polymer/polymer-element.html">
+
+  <dom-module id="alert-element-two">
+    <template>
+      <h2 id="alertHead">Zoia eu</h2>
+      <ul class="alert-list-inner">
+        <li>Alert 1</li>
+        <li>Alert 2</li>
+        <li>Alert 3</li>
+      </ul>
+      <slot></slot>
+    </template>
+  </dom-module>
+
+<script>
+  class DomElement2 extends Polymer.Element { 
+  
+    static get is() { return "alert-element-two"; }
+  
+    ready(){
+        super.ready();
+        console.log("this", this);
+        console.log("this.root", this.root);
+        console.log("this.$", this.$);
+        console.log(Polymer.dom(this).children); 
+        
+        var lightDomDiv = document.querySelector("alert-element-two").querySelector(".alert-list");
+        console.log("lightDomDiv", lightDomDiv);
+
+        //Returns a list of effective child nodes for this element.
+        var effectiveChildrenNodes = Polymer.dom(this).getEffectiveChildNodes();
+        console.log("effectiveChildrenNodes", effectiveChildrenNodes);
+
+        //getDestinationInsertionPoints only returns useful results when called on an element that’s being distributed.
+        var insertedTo = Polymer.dom(lightDomDiv).getDestinationInsertionPoints()[0];
+        console.log("insertedTo", insertedTo);
+        
+        var insertionPoint = Polymer.dom(this.root).querySelector('content');
+        //Note that getDistributedNodes only returns useful results when called on a <content> element, and
+        var distributed = Polymer.dom(insertionPoint).getDistributedNodes()[0];
+        console.log("distributed", distributed);      
+    }
+  
+  }
+
+  customElements.define(DomElement2.is, DomElement2);
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import"  href="../bower_components/polymer/polymer-element.html">
+
+  <dom-module id="alert-element-footer">
+    <template>
+      <h2 id="alertHead">Zoia eu</h2>
+      <ul class="alert-list-inner">
+        <li>Alert 1</li>
+        <li>Alert 2</li>
+        <li>Alert 3</li>
+      </ul>
+      <footer id="footer">Created by: <div id="creator"></div></footer>
+      <slot></slot>
+    </template>
+  </dom-module>
+
+<script>
+  class DomElementFooter extends Polymer.Element { 
+  
+    static get is() { return "alert-element-footer"; }
+  
+    ready(){
+        super.ready();
+        var spanElement = document.createElement("span");
+        spanElement.innerHTML = "Joy";
+        Polymer.dom(this.$.creator).appendChild(spanElement);
+        Polymer.dom(this.$.creator).removeChild(spanElement);
+        Polymer.dom(this.$.footer).insertBefore(spanElement, this.$.creator); 
+    }
+  
+  }
+
+  customElements.define(DomElementFooter.is, DomElementFooter);
+</script>

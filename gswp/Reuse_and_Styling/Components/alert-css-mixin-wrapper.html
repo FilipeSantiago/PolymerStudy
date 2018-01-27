@@ -1,0 +1,45 @@
+<link rel="import"  href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/shadycss/apply-shim.html">
+<link rel="import" href="alert-css-mixin.html"/>
+<link rel="import" href="shared-css.html"/>
+
+<dom-module id="css-element-wrapper">
+    <template>
+        <style include="shared-css">
+            css-alert-wrapper{
+                --secondary-color:white;
+                --primary-block:{
+                    border:1px solid #898989;
+                    display:block;
+                    border-radius: 4px;
+                    padding:20px;
+                    margin:20px;
+                }
+            }
+            css-alert-wrapper.highlight{
+                --primary-color:yellow;
+            }
+        </style>
+        <div class="underline">
+            TESTEEEEEEEEEE SUBLINHA EUUUUU
+        </div>
+        <css-alert-wrapper>
+            <ul class="alert-list">
+                <li>Alert List 4</li>
+            </ul>
+        </css-alert-wrapper>
+    </template>
+</dom-module>
+
+<script>
+    class CssStyler extends Polymer.Element{
+        static get is() { return "css-element-wrapper"; }
+
+      ready(){
+        super.ready();
+      }   
+    }
+
+    customElements.define(CssStyler.is, CssStyler);
+
+</script>

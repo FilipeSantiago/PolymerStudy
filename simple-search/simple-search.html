@@ -1,0 +1,87 @@
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="simple-search-styles.html">
+
+<dom-module id=simple-search>    
+    <template>
+        <style include="simple-search-styles"></style>
+        <iron-a11y-keys target={{searchInput}} keys="enter" on-keys-pressed="searchAction"></iron-a11y-keys>
+        <div class$=[[_toogleClass]]>
+            <div class="flex-horizontal">
+                <div>
+                    <template is="dom-if" if={{!staticOpen}}> 
+                        <div class="trigger-open">
+                            <paper-icon-button on-tap="toggle" icon="icons:search"></paper-icon-button>
+                        </div>
+                        <div class="trigger-close">
+                            <paper-icon-button on-tap="toggle" icon="close" class="center"></paper-icon-button>
+                        </div>
+                    </template>
+                </div>
+                <div class="input-area flex-child">
+                    <paper-input id="searchInput" placeholder="Search"></paper-input>
+                </div>
+                <div class="trigger-search"> 
+                    <paper-icon-button id="search-btn" on-tap:"searchAction" icon="icons:search"></paper-icon-button>
+                </div>
+            </div>
+        </div>
+
+    </template>
+</dom-module>
+
+<script>
+
+    class SimpleSearchElement extends Polymer.GestureEventListeners(Polymer.Element) {        
+        
+        static get is() { return "simple-search"; }
+
+        ready(){
+            this.isOpen = this.staticOpen;
+            super.ready();
+            window.addEventListener('toggle', () => this.toggle());
+            window.addEventListener('searchAction', () => this.searchAction());
+        }     
+
+        static get properties(){
+            return{
+                isOpen:{
+                    type:Boolean,
+                    value:false,
+                    observer: '_isOpenChanged'
+                },
+                staticOpen:{
+                    type:Boolean,
+                    value: false
+                },
+                _toogleClass:{
+                    type:String,
+                    value: ""
+                }                
+            };
+        }
+
+        searchAction(){
+            alert(this.$.searchInput.value);
+        }
+
+        toggle(){
+            this.isOpen = !this.isOpen;
+            if(this.isOpen){
+                this.$.searchInput.value = "";
+                this.$.searchInput.focus();
+            }
+        }
+        _isOpenChanged(){
+            this._toogleClass = "";
+            if(this.isOpen){
+                this._toogleClass = "opened"
+            }
+        }
+    }
+
+    customElements.define(SimpleSearchElement.is, SimpleSearchElement);
+
+</script>
